@@ -9,7 +9,7 @@ public class Main {
 			
 			for(int i=0; i<a.getInput().getS1().length()+1; i++) {
 				for(int j=0; j<a.getInput().getS2().length()+1; j++) {
-					System.out.print(a.getMatriz()[i][j]);
+					System.out.print(a.getMatriz()[i][j] + " ");
 				}
 				System.out.println();
 			}

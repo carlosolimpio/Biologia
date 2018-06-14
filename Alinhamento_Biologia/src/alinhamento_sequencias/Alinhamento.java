@@ -49,22 +49,40 @@ public class Alinhamento {
 				//esquerda
 				esquerda = this.matriz[i][j-1] + gap;
 				
-				//Máximo
+				//M�ximo
 				this.matriz[i][j] = Math.max(diagonal, Math.max(topo, esquerda));
 			}
 		}
 	}
 	
 	public void alinhamentoGlobal() {
-		//pontuação de alinhamento ótimo
-		int alinhamentoOtimo = this.matriz[this.input.getS1().length()][this.input.getS2().length()];
+		String s1Final = "";
+		String s2Final = "";
 		
-		
-		
-		
+		for(int i=input.getS1().length(); i>0; i--) {
+			for(int j=input.getS2().length(); j>0; j--) {
+				
+				if(i > 0 && j > 0) {
+					if(matriz[i][j] == (matriz[i-1][j-1] + score(input.getS1().charAt(i-1), input.getS2().charAt(j-1), input.getMatch(), input.getMismatch()))) {
+						s1Final += input.getS1().charAt(i-1);
+						s2Final += input.getS2().charAt(j-1);
+						i--;
+					} else if(matriz[i][j] == (matriz[i-1][j] + input.getGap())) {
+						s1Final += input.getS1().charAt(i-1);
+						s2Final += "-";
+					} else if(matriz[i][j] == (matriz[i][j-1] + input.getGap())) {
+						s1Final += "-";
+						s2Final += input.getS2().charAt(j-1);
+					}					
+				}
+				
+			}
+		}
+		//reverter
+		System.out.println(s1Final + "\n" + s2Final);
 	}
 	
-	private int score(int c1, int c2, int match, int mismatch) {
+	private int score(char c1, char c2, int match, int mismatch) {
 		if(c1 == c2)
 			return match;
 		else 
