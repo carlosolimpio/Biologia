@@ -56,30 +56,74 @@ public class Alinhamento {
 	}
 	
 	public void alinhamentoGlobal() {
+		int alinhamentoOtimo = matriz[input.getS1().length()][input.getS2().length()];
 		String s1Final = "";
 		String s2Final = "";
 		
-		for(int i=input.getS1().length(); i>0; i--) {
-			for(int j=input.getS2().length(); j>0; j--) {
-				
-				if(i > 0 && j > 0) {
-					if(matriz[i][j] == (matriz[i-1][j-1] + score(input.getS1().charAt(i-1), input.getS2().charAt(j-1), input.getMatch(), input.getMismatch()))) {
-						s1Final += input.getS1().charAt(i-1);
-						s2Final += input.getS2().charAt(j-1);
-						i--;
-					} else if(matriz[i][j] == (matriz[i-1][j] + input.getGap())) {
-						s1Final += input.getS1().charAt(i-1);
-						s2Final += "-";
-					} else if(matriz[i][j] == (matriz[i][j-1] + input.getGap())) {
-						s1Final += "-";
-						s2Final += input.getS2().charAt(j-1);
-					}					
-				}
-				
+		int diagonal;
+		int topo;
+		int esquerda;
+		int atual;
+		
+		int i = input.getS1().length();
+		int j = input.getS2().length();
+		
+		while(i > 0 && j > 0){
+			
+			diagonal = matriz[i-1][j-1] + score(input.getS1().charAt(i-1),input.getS2().charAt(j-1),input.getMatch(),input.getMismatch());
+			topo = matriz[i-1][j] + input.getGap();
+			esquerda = matriz[i][j-1] + input.getGap();
+			atual = matriz[i][j];
+			
+			if(atual == diagonal) {
+				s1Final += input.getS1().charAt(i-1);
+				s2Final += input.getS2().charAt(j-1);
+				i--;
+				j--;
+			}
+			else if(atual == topo) {
+				s1Final += input.getS1().charAt(i-1);
+				s2Final += "-";
+				i--;
+			}
+			else if(atual == esquerda) {
+				s1Final += "-";
+				s2Final += input.getS2().charAt(j-1);
+				j--;
 			}
 		}
+		
+		if(i > j) {
+			while(i >= 1) {
+				topo = matriz[i-1][j] + input.getGap();
+				atual = matriz[i][j];
+				
+				if(atual == topo) {
+					s1Final += input.getS1().charAt(i);
+					s2Final += "-";
+				}
+				
+				i--;
+			}
+		} else {
+			while(j >= 1) {
+				esquerda = matriz[i][j-1] + input.getGap();
+				atual = matriz[i][j];
+				
+				if(atual == esquerda) {
+					s1Final += "-";
+					s2Final += input.getS2().charAt(j);
+				}
+				
+				j--;
+			}
+		}
+		
 		//reverter
-		System.out.println(s1Final + "\n" + s2Final);
+		StringBuilder seq1 = new StringBuilder(s1Final).reverse();
+		StringBuilder seq2 = new StringBuilder(s2Final).reverse();
+		System.out.println(seq1 + "\n" + seq2);
+		System.out.println(alinhamentoOtimo);
 	}
 	
 	private int score(char c1, char c2, int match, int mismatch) {
