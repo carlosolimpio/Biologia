@@ -14,8 +14,9 @@ public class Main {
 				System.out.println();
 			}
 			
-			//System.out.println(input.getS1() + "\n" + input.getS2());
-			//System.out.println(input.getMatch() + "\n" + input.getMismatch() + "\n" + input.getGap());
+			System.out.println();
+			System.out.println(a.getAlinhamentoOtimo() + "\n");
+			System.out.println(a.alinhamentoGlobal());
 			
 		} catch(Exception e) {
 			e.printStackTrace();

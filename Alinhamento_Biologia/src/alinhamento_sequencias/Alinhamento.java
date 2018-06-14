@@ -4,6 +4,7 @@ public class Alinhamento {
 	
 	private int[][] matriz;
 	private Input input;
+	private int alinhamentoOtimo;
 
 	
 	public Alinhamento(String fileName) {
@@ -55,8 +56,8 @@ public class Alinhamento {
 		}
 	}
 	
-	public void alinhamentoGlobal() {
-		int alinhamentoOtimo = matriz[input.getS1().length()][input.getS2().length()];
+	public String alinhamentoGlobal() {
+		setAlinhamentoOtimo(matriz[input.getS1().length()][input.getS2().length()]);
 		String s1Final = "";
 		String s2Final = "";
 		
@@ -122,8 +123,7 @@ public class Alinhamento {
 		//reverter
 		StringBuilder seq1 = new StringBuilder(s1Final).reverse();
 		StringBuilder seq2 = new StringBuilder(s2Final).reverse();
-		System.out.println(seq1 + "\n" + seq2);
-		System.out.println(alinhamentoOtimo);
+		return seq1 + "\n" + seq2;
 	}
 	
 	private int score(char c1, char c2, int match, int mismatch) {
@@ -131,6 +131,14 @@ public class Alinhamento {
 			return match;
 		else 
 			return mismatch;
+	}
+
+	public int getAlinhamentoOtimo() {
+		return alinhamentoOtimo;
+	}
+
+	public void setAlinhamentoOtimo(int alinhamentoOtimo) {
+		this.alinhamentoOtimo = alinhamentoOtimo;
 	}
 
 	public int[][] getMatriz() {
