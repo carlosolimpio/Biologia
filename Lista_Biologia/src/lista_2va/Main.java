@@ -4,12 +4,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		String input = "AAAACCCGGT";
+		String s = "AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA";
+		//String t = "CATCGTAATGACGGCCT";
 		
-		Resolucao r = new Resolucao(input);
+		Resolucao r = new Resolucao();
 		
-		System.out.println(r.revc() + "\nEntrada: " + r.getInput());
-
+		System.out.println(r.prot(s) + "\nEntrada: " + s);
+		
 	}
 
 }
