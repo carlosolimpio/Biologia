@@ -1,5 +1,7 @@
 package lista_2va;
 
+import java.util.ArrayList;
+
 public class Resolucao {
 	
 	//http://rosalind.info/problems/dna/
@@ -290,7 +292,56 @@ public class Resolucao {
 	//http://rosalind.info/problems/cons/
 	
 	
+	
 	//http://rosalind.info/problems/orf/
+	public ArrayList<String> orf(String s) {
+		ArrayList<String> out = new ArrayList<String>();
+		String rna = this.rna(s);
+		
+		//rna
+		for(int i=0; i<rna.length()-2; i++) {
+			if(rna.substring(i, i+3).equals("AUG")) {
+				String sub = rna.substring(i, rna.length());
+				String aux = rna.substring(i, i+3);
+				i += 3;
+				for(int j=3; j<sub.length()-2; j+=3) {
+					if(!sub.substring(j, j+3).equals("UAG")
+							&& !sub.substring(j, j+3).equals("UGA")
+							&& !sub.substring(j, j+3).equals("UAA")) {
+						aux += sub.substring(j, j+3);
+					} else {
+						if(!out.contains(aux))
+							out.add(aux);
+						break;
+					}
+				}
+			}
+		}
+		
+		//complemento rna
+		String rRna = this.rna(this.revc(s));
+		
+		for(int i=0; i<rRna.length()-2; i++) {
+			if(rRna.substring(i, i+3).equals("AUG")) {
+				String sub = rRna.substring(i, rna.length());
+				String aux = rRna.substring(i, i+3);
+				i += 3;
+				for(int j=3; j<sub.length()-2; j+=3) {
+					if(!sub.substring(j, j+3).equals("UAG")
+							&& !sub.substring(j, j+3).equals("UGA")
+							&& !sub.substring(j, j+3).equals("UAA")) {
+						aux += sub.substring(j, j+3);
+					} else {
+						if(!out.contains(aux))
+							out.add(aux);
+						break;
+					}
+				}
+			}
+		}
+		return out;
+	}
+	
 	//http://rosalind.info/problems/ksim
 	
 	/**

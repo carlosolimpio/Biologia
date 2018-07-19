@@ -17,7 +17,7 @@ public class Input {
 	
 	private void trataArquivo(String fileName) throws Exception {
 		
-		Scanner scan = new Scanner(new FileReader(fileName));
+		Scanner scan = new Scanner(new FileReader("dataset.txt"));
 		int i = 0;
 		while(scan.hasNext()) {
 			String linha = scan.nextLine();
